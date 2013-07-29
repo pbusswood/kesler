@@ -1,31 +1,22 @@
-<h1>Listing questions</h1>
+<div class="page-header">
+  <h1>Questions</h1>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Content</th>
-      <th>User</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<%= link_to "Ask a Question", new_question_path, class: "btn btn-success" %>
 
-  <tbody>
-    <% @questions.each do |question| %>
-      <tr>
-        <td><%= question.title %></td>
-        <td><%= question.content %></td>
-        <td><%= question.user_id %></td>
-        <td><%= link_to 'Show', question %></td>
-        <td><%= link_to 'Edit', edit_question_path(question) %></td>
-        <td><%= link_to 'Destroy', question, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Question', new_question_path %>
+<% @questions.each do |question| %>
+  <div class="question">
+    <div class="row">
+      <div class="span12">
+        <strong>My Name</strong>
+        <p><%= question.title %></p>
+        <div class="meta">
+          <%= link_to time_ago_in_words(question.created_at) + " ago", question %>
+          <span class="admin">
+            | <%= link_to "Edit", edit_question_path(question) %> | <%= link_to "Delete", question, method: :delete, data: {confirm: "Are you sure you want to delete this question?"} %>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
